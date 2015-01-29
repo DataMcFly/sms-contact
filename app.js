@@ -11,10 +11,10 @@ app.use(express.static(__dirname + '/public')); // set the static files location
 var port = process.env.PORT || 8080; // set our port
 
 var twilio = require('twilio');
-var client = twilio('ACad7f2667cf30801764096247be3749b3', 'ec8c4cabbc5d0dd8264ce0c97c30302a');
+var client = twilio('ACCOUNTSID', 'AUTHTOKEN');
 
-var api_key = "74c8064f-cd6f-4c07-8baf-b1d241496eec";
-var db = "sample";
+var api_key = "YOUR-API-KEY";
+var db = "callcenter";
 var collection = "sms-contact";
 
 var messagesRef = require('datamcfly').init(db, collection, api_key);
