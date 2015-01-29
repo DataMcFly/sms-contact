@@ -14,10 +14,10 @@ var client = twilio('ACCOUNTSID', 'AUTHTOKEN');
 var twilio_number = 'YOUR-NUMBER';
 
 var api_key = "YOUR-API-KEY";
-var db = "YOUR-DATAMCFLY-APP";
+var app = "YOUR-DATAMCFLY-APP";
 var collection = "smscontact";
 
-var messagesRef = require('datamcfly').init(db, collection, api_key);
+var messagesRef = require('datamcfly').init(app, collection, api_key);
 
 //	listen for incoming sms messages
 app.post('/message', function (request, response) {
