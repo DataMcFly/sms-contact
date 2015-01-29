@@ -15,7 +15,7 @@ var twilio_number = 'YOUR-NUMBER';
 
 var api_key = "YOUR-API-KEY";
 var db = "callcenter";
-var collection = "sms-contact";
+var collection = "smscontact";
 
 var messagesRef = require('datamcfly').init(db, collection, api_key);
 
