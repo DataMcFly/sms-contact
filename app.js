@@ -14,7 +14,7 @@ var client = twilio('ACCOUNTSID', 'AUTHTOKEN');
 var twilio_number = 'YOUR-NUMBER';
 
 var api_key = "YOUR-API-KEY";
-var db = "callcenter";
+var db = "YOUR-DATAMCFLY-APP";
 var collection = "smscontact";
 
 var messagesRef = require('datamcfly').init(db, collection, api_key);
