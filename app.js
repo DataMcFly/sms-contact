@@ -19,6 +19,8 @@ var collection = "smscontact";
 
 var messagesRef = require('datamcfly').init(app, collection, api_key);
 
+// backend routes =========================================================
+
 //	listen for incoming sms messages
 app.post('/message', function (request, response) {
 	var d = new Date();
