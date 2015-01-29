@@ -63,7 +63,7 @@ chat.prototype = {
 	},
 	replyMessage: function(message) {
 		// this is called when you click the reply button
-		// calls the controller to send a Twilio SMS and write to the chat file
+		// calls the controller to send a Twilio SMS and update our Data McFly app
 		var _this = this;
 		$.ajax({
 			type: "POST",
@@ -75,7 +75,7 @@ chat.prototype = {
 			},
 			dataType: "json",
 			success: function(data) {
-				// your message was written to the chat file and will be displayed on next poll
+				// your message was sent
 			}
 		});
 	},
