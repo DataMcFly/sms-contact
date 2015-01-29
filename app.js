@@ -29,7 +29,7 @@ app.post('/message', function (request, response) {
 		fromState:request.param('FromState'),
 		fromCountry:request.param('FromCountry')
 	});
-	var twiml = new twilio.TwimlResponse().message('Thanks for the message, an agent will get back to your shortly.');
+	var twiml = new twilio.TwimlResponse().message('Thanks for the message, an agent will get back to you shortly.');
 	response.send( twiml );
 });
 
