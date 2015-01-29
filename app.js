@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
+var twilio = require('twilio');
 
 var app = express();
 app.use(bodyParser.json());
@@ -10,8 +11,8 @@ app.use(express.static(__dirname + '/public')); // set the static files location
  
 var port = process.env.PORT || 8080; // set our port
 
-var twilio = require('twilio');
 var client = twilio('ACCOUNTSID', 'AUTHTOKEN');
+var twilio_number = 'YOUR-NUMBER';
 
 var api_key = "YOUR-API-KEY";
 var db = "callcenter";
@@ -20,9 +21,14 @@ var collection = "sms-contact";
 var messagesRef = require('datamcfly').init(db, collection, api_key);
 
 app.post('/message', function (request, response) {
+	var d = new Date();
+	var date = d.toLocaleString();
+
 	messagesRef.push({
 		sid: request.param('MessageSid'),
 		type:'text',
+		direction: "inbound",
+		tstamp: date,
 		fromNumber:request.param('From'),
 		textMessage:request.param('Body'),
 		fromCity:request.param('FromCity'),
@@ -33,7 +39,32 @@ app.post('/message', function (request, response) {
 	response.send( twiml );
 });
 
+app.post('/reply', function (request, response) {
+	var d = new Date();
+	var date = d.toLocaleString();
+
+	messagesRef.push({
+		type:'text',
+		direction: "outbound",
+		tstamp: date,
+		fromNumber:request.param('To'),
+		textMessage:request.param('Body'),
+		fromCity:'',
+		fromState:'',
+		fromCountry:''
+	});
+
+	client.sendMessage( {
+		to:request.param('To'), 
+		from:twilio_number,
+		body:request.param('Body')
+	}, function( err, data ) {
+		console.log( data.body );
+	});
+});
+
 // frontend routes =========================================================
+
 // route to handle all angular requests
 app.get('*', function(req, res) {
 	res.sendfile('./public/index.html');

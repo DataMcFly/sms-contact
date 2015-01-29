@@ -1,0 +1,8 @@
+body{font-size:12pt;font-family:helvetica}
+.chatWindow{float:left;margin:20px;border:1px solid #000;width:300px;background:#e5e5e5;border-radius:5px}
+.chatName{margin-bottom:10px;background:#666;color:#fff;padding:4px}
+.messages{padding:4px}
+.message_outbound{color:blue;text-align:right}
+.tstamp{font-size:9px;padding:2px;margin-bottom:10px;border-bottom:1px dotted #666;color:#666}
+.error{color:red;text-align:center}
+.messageForm textarea{float:left;width:220px;margin:5px}
