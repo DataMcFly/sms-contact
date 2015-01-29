@@ -78,13 +78,7 @@ chat.prototype = {
             },
             dataType: "json",
             success: function(data) {
-                if (data.result == "error") {
-                    // display Twilio REST error
-                    console.log(data.message);
-                    $('#' + _this.chatName).append("<div class='error'>" + data.message + "</div>");
-                } else {
-                    // your message was written to the chat file and will be displayed on next poll
-                }
+                // your message was written to the chat file and will be displayed on next poll
             }
         });
     },
@@ -111,47 +105,3 @@ chat.prototype = {
         $('#' + this.chatName).append("<div class='message_" + direction + "'>" + message + "<div class='tstamp'>" + tstamp + "</div></div>");
     }
 };
-
-/*
-			messagesRef.once('value', function (data) {
-				data.forEach( function(message){					
-					displayChatMessage(message.value() );
-				});
-			});
-						
-			// When the user presses enter on the message input, write the message to firebase.
-			$('#messageInput').keypress(function (e) {
-				if (e.keyCode == 13) {
-					var name = $('#nameInput').val() || "anonymous";
-					var text = $('#messageInput').val();
-					messagesRef.push( {name:name, text:text} );
-					$('#messageInput').val('');
-				}
-			});
-			
-			// Add a callback that is triggered for each chat message.
-			messagesRef.on('added', function (data) {
-				var message = data.value();
-				displayChatMessage(message);
-			});
-
-			function displayChatMessage(message) {
-				$('<li/>')
-					.attr("id",message._id)
-					.text(message.text)
-					.prepend(
-						$("<strong class='example-chat-username' />").text(message.name+': ')
-					).appendTo($('#messagesDiv'));
-				$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-
-//				$('<div/>').text(text).prepend($('<em/>').text(name+': ')).appendTo($('#messagesDiv'));
-//				$('#messagesDiv')[0].scrollTop = $('#messagesDiv')[0].scrollHeight;
-			}
-
-			// Add a callback that is triggered for each chat message.
-			messagesRef.on('online', function (data) {
-				var online = data.value();				
-				$("#ocnt").text( online );
-			});
-		});
-*/		

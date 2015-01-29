@@ -6,7 +6,6 @@ var twilio = require('twilio');
 var app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({	extended: true	}));
-app.use(methodOverride('X-HTTP-Method-Override')); // override with the X-HTTP-Method-Override header in the request. simulate DELETE/PUT
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
  
 var port = process.env.PORT || 8080; // set our port
@@ -20,6 +19,7 @@ var collection = "sms-contact";
 
 var messagesRef = require('datamcfly').init(db, collection, api_key);
 
+//	listen for incoming sms messages
 app.post('/message', function (request, response) {
 	var d = new Date();
 	var date = d.toLocaleString();
@@ -35,10 +35,16 @@ app.post('/message', function (request, response) {
 		fromState:request.param('FromState'),
 		fromCountry:request.param('FromCountry')
 	});
-	var twiml = new twilio.TwimlResponse().message('Thanks for the message, an agent will get back to you shortly.');
-	response.send( twiml );
+
+	var resp = new twilio.TwimlResponse();
+	resp.message('Thanks for the message, an agent will get back to you shortly.');
+	response.writeHead(200, {
+		'Content-Type':'text/xml'
+	});
+	response.end(resp.toString());
 });
 
+//	listen for replies
 app.post('/reply', function (request, response) {
 	var d = new Date();
 	var date = d.toLocaleString();
@@ -47,7 +53,7 @@ app.post('/reply', function (request, response) {
 		type:'text',
 		direction: "outbound",
 		tstamp: date,
-		fromNumber:request.param('To'),
+		fromNumber:request.param('From'),
 		textMessage:request.param('Body'),
 		fromCity:'',
 		fromState:'',
@@ -59,7 +65,7 @@ app.post('/reply', function (request, response) {
 		from:twilio_number,
 		body:request.param('Body')
 	}, function( err, data ) {
-		console.log( data.body );
+//		console.log( data.body );
 	});
 });
 
