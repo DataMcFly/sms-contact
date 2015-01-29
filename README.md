@@ -10,4 +10,4 @@ This will be the first in a series of demos for using Data McFly and Twilio toge
 
 ### Setup
 
-Insert your Twilio and Data McFly credentials in `app.js`, also open `index.html` in the `public` folder and add your Data McFly credentials there as well.
+Insert your Twilio and Data McFly credentials in `app.js`.
