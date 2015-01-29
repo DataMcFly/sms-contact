@@ -2,8 +2,11 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override');
 var twilio = require('twilio');
+var     path = require('path');
 
 var app = express();
+app.set('views', path.join(process.cwd(), 'views'));
+app.set('view engine', 'ejs');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({	extended: true	}));
 app.use(express.static(__dirname + '/public')); // set the static files location /public/img will be /img for users
@@ -14,10 +17,10 @@ var client = twilio('ACCOUNTSID', 'AUTHTOKEN');
 var twilio_number = 'YOUR-NUMBER';
 
 var api_key = "YOUR-API-KEY";
-var app = "YOUR-DATAMCFLY-APP";
+var appname = "YOUR-DATAMCFLY-APP";
 var collection = "smscontact";
 
-var messagesRef = require('datamcfly').init(app, collection, api_key);
+var messagesRef = require('datamcfly').init(appname, collection, api_key);
 
 // backend routes =========================================================
 
@@ -75,7 +78,11 @@ app.post('/reply', function (request, response) {
 
 // route to handle all angular requests
 app.get('*', function(req, res) {
-	res.sendfile('./public/index.html');
+    res.render('home', {
+        apikey:api_key,
+        appname:appname,
+        collection:collection
+    });
 });
 
  
